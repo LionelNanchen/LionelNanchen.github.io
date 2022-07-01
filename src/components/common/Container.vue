@@ -34,6 +34,9 @@ export default defineComponent({
         return data;
     },
     created() {
+        // Check if authenticated
+        this.authenticated = localStorage.getItem('authenticated') === 'truee';
+
         // TODO: Handle Welcome page
         // Read path
         const path = window.location.pathname.split('/')[1];
@@ -48,15 +51,12 @@ export default defineComponent({
         });
     },
     mounted() {
-        // Check if authenticated
-        this.authenticated = localStorage.getItem('authenticated') === 'true';
-
         // Scroll to riddle select
         const width = (this.$refs.innerRef as HTMLDivElement)?.clientWidth;
         const index = this.currentRiddle?.index ?? 1;
         if (index > 4) {
             const offset = width * (this.currentRiddle?.index ?? 1) / 7;
-            (this.$refs.scrollbarRef as InstanceType<typeof ElScrollbar>).setScrollLeft(offset);
+            (this.$refs.scrollbarRef as InstanceType<typeof ElScrollbar>)?.setScrollLeft(offset);
         }
     },
     beforeUnmount() {
@@ -70,7 +70,7 @@ export default defineComponent({
             }
         },
         async checkAccessibility() {
-            if (this.currentRiddle) {
+            if (this.currentRiddle && this.authenticated) {
                 const now = await TimeAPI.now();
                 const tmp = moment(this.currentRiddle.availableTime, "HH:mm");
                 const availableTime = moment(now);
@@ -94,11 +94,12 @@ export default defineComponent({
         }
     },
     watch: {
-    password(password) {
-            console.log('New password - ', this.password, password);
+        password(password) {
             if (password === 'Sarah+Gui') {
                 localStorage.setItem('authenticated', 'true');
                 this.authenticated = true;
+                this.checkAccessibility();
+                this.password = '';
             }
         },
     }
