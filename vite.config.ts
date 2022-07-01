@@ -1,5 +1,6 @@
 import { fileURLToPath, URL } from "url";
 
+import { resolve } from 'path';
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
@@ -13,6 +14,12 @@ export default defineConfig({
     },
   },
   build: {
-   outDir: 'docs',
+    outDir: 'docs',
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        axe: resolve(__dirname, 'src/pages/axe/index.html')
+      }
+    }
   },
 });
