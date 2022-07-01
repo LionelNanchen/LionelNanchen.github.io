@@ -96,7 +96,7 @@ export default defineComponent({
                 <Header />
             </el-header>
             <el-main>
-                <el-scrollbar ref="scrollbarRef">
+                <el-scrollbar ref="scrollbarRef" style="justify-content: center; display: flex;">
                     <div ref="innerRef" class="riddles">
                         <RiddleSelect v-for="riddle in riddles" :riddle="riddle" :currentRiddle="currentRiddle" />
                     </div>
