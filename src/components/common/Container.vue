@@ -185,7 +185,8 @@ export default defineComponent({
 }
 
 .password-card {
-    min-width: 90vw;
+    width: 90vw;
+    max-width: 500px;
 }
 </style>
 
