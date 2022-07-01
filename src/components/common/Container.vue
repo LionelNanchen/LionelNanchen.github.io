@@ -12,6 +12,8 @@ interface Data {
     riddles: Riddle[] | undefined,
     currentRiddle: Riddle | undefined,
     accessible: boolean,
+    authenticated: boolean,
+    password: string,
     interval: NodeJS.Timer | undefined,
     countdown: number,
 }
@@ -23,7 +25,9 @@ export default defineComponent({
             loading: true,
             riddles: [],
             currentRiddle: undefined,
+            authenticated: false,
             accessible: false,
+            password: '',
             interval: undefined,
             countdown: 0,
         };
@@ -44,8 +48,11 @@ export default defineComponent({
         });
     },
     mounted() {
+        // Check if authenticated
+        this.authenticated = localStorage.getItem('authenticated') === 'true';
+
         // Scroll to riddle select
-        const width = (this.$refs.innerRef as HTMLDivElement).clientWidth;
+        const width = (this.$refs.innerRef as HTMLDivElement)?.clientWidth;
         const index = this.currentRiddle?.index ?? 1;
         if (index > 4) {
             const offset = width * (this.currentRiddle?.index ?? 1) / 7;
@@ -85,13 +92,22 @@ export default defineComponent({
             const minutes = Math.ceil(this.countdown / 60)
             return `Revenez dans ${minutes} minute${minutes > 1 ? 's' : ''}`;
         }
+    },
+    watch: {
+    password(password) {
+            console.log('New password - ', this.password, password);
+            if (password === 'Sarah+Gui') {
+                localStorage.setItem('authenticated', 'true');
+                this.authenticated = true;
+            }
+        },
     }
 })
 </script>
 
 <template>
     <div class="common-layout">
-        <el-container>
+        <el-container v-if="authenticated">
             <el-header>
                 <Header />
             </el-header>
@@ -120,6 +136,14 @@ export default defineComponent({
                     </div>
                 </el-main>
             </el-main>
+        </el-container>
+        <el-container v-else class="password">
+            <el-card class="password-card">
+                <template #header>
+                    <span>Mot de passe</span>
+                </template>
+                <el-input type="text" placeholder="Mot de passe" v-model="password" />
+            </el-card>
         </el-container>
     </div>
 </template>
@@ -150,10 +174,26 @@ export default defineComponent({
     margin-top: 6px;
     max-width: 140px;
 }
+
+.password {
+    background-color: #cccccc;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.password-card {
+    min-width: 90vw;
+}
 </style>
 
 <style>
 .el-main {
     padding: 0px !important;
+}
+
+.common-layout {
+    margin-bottom: 0px !important;
 }
 </style>
