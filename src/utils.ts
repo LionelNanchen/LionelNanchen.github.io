@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export enum RiddleId {
     Hieroglyphs = "hieroglyphs",
     DoubleMemories = "doubleMemories",
@@ -7,54 +9,56 @@ export enum RiddleId {
     Souvenir = "souvenir",
 }
 
+const startingTime = moment("10:45", "HH:mm");
+
 export const riddles: Riddle[] = [
     {
         id: RiddleId.Hieroglyphs,
         index: 1,
         title: "Hiéroglyphes",
         response: "",
-        availableTime: "16:45",
+        availableTime: moment(startingTime).format("HH:mm"),
     },
     {
         id: RiddleId.DoubleMemories,
         index: 2,
         title: "Mémoires double",
         response: "",
-        availableTime: "17:00",
+        availableTime: moment(startingTime).add(15, 'minutes').format("HH:mm"),
     },
     {
         id: RiddleId.TimeTravel,
         index: 3,
         title: "Voyage dans le temps",
         response: "",
-        availableTime: "17:30",
+        availableTime: moment(startingTime).add(30, 'minutes').format("HH:mm"),
     },
     {
         id: RiddleId.WorldMap,
         index: 4,
         title: "World Map",
         response: "",
-        availableTime: "17:45",
+        availableTime: moment(startingTime).add(45, 'minutes').format("HH:mm"),
     },
     {
         id: RiddleId.Axe,
         index: 5,
         title: "Bûcheron",
         response: "",
-        availableTime: "18:00",
+        availableTime: moment(startingTime).add(60, 'minutes').format("HH:mm"),
     },
     {
         id: RiddleId.Souvenir,
         index: 6,
         title: "Souvenir",
         response: "",
-        availableTime: "18:30",
+        availableTime: moment(startingTime).add(75, 'minutes').format("HH:mm"),
     },
     {
         id: "",
         index: 7,
         title: "???",
         response: "",
-        availableTime: "18:45",
+        availableTime: moment(startingTime).add(90, 'minutes').format("HH:mm"),
     },
 ];

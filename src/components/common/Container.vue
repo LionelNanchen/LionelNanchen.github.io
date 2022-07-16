@@ -35,7 +35,7 @@ export default defineComponent({
     },
     created() {
         // Check if authenticated
-        this.authenticated = localStorage.getItem('authenticated') === 'truee';
+        this.authenticated = true; //localStorage.getItem('authenticated') === 'true';
 
         // TODO: Handle Welcome page
         // Read path
