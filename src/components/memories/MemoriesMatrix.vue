@@ -85,8 +85,8 @@ export default defineComponent({
         <el-row justify="space-evenly" align="middle" v-for="(row, i) in matrix">
             <el-col :span="2" v-for="(cell, j) in row">
                 <el-button class="double-memories-cell" text circle :disabled="disableCell(cell)"
-                    @click="() => onSelectCell(cell, i, j)">
-                    <span v-if="cell" v-bind:style="cell === ball?.ball ? 'opacity: 0.5;' : ''">{{ cell }}</span>
+                    @click="() => onSelectCell(cell, i, j)" v-bind:style="disableCell(cell) ? 'opacity: 0.7' : 'color: #337ecc'">
+                    <span v-if="cell" v-bind:style="cell === ball?.ball ? 'opacity: 0.3;' : ''">{{ cell }}</span>
                     <el-icon v-else>
                         <Aim />
                     </el-icon>

@@ -17,17 +17,17 @@ export default defineComponent({
         const data: Data = {
             startingMatrix: [
                 [undefined, '⚾️', undefined, undefined, undefined],
-                [undefined, undefined, undefined, undefined, '🎾'],
+                [undefined, undefined, undefined, undefined, '🏐'],
                 [undefined, undefined, undefined, '⚽️', undefined],
-                [undefined, undefined, undefined, '🪩', undefined],
+                [undefined, undefined, undefined, '🎱', undefined],
                 ['🏀', undefined, undefined, undefined, undefined],
             ],
             answerMatrix: [
                 ['⚽️', undefined, undefined, undefined, undefined],
                 [undefined, undefined, undefined, '🏀', undefined],
-                [undefined, undefined, undefined, undefined, '🪩'],
+                [undefined, undefined, undefined, undefined, '🎱'],
                 [undefined, undefined, '⚾️', undefined, undefined],
-                [undefined, '🎾', undefined, undefined, undefined],
+                [undefined, '🏐', undefined, undefined, undefined],
             ],
             answer: 'Z',
         };
