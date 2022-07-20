@@ -71,7 +71,7 @@ export default defineComponent({
 }
 
 .heart {
-    z-index: 1;
+    z-index: 10000;
     position: absolute;
     animation: beat 2s ease infinite, fall 5s linear;
     animation-fill-mode: forwards;
