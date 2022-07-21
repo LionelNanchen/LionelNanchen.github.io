@@ -55,7 +55,7 @@ export default defineComponent({
     data: () => {
         const data: Data = {
             zoom: 5,
-            markerIcons: ["https://www.pngitem.com/pimgs/m/117-1171522_free-red-check-icon-png-red-location-marker.png", Marker1, Marker2, Marker3, Marker4, Marker5],
+            markerIcons: [Marker0, Marker1, Marker2, Marker3, Marker4, Marker5],
             markers: [
                 [47.3775499, 8.4666756],
                 [46.9547232, 7.3598507],
@@ -98,6 +98,9 @@ export default defineComponent({
         locationsImages(): string[] {
             return this.locations.map((l: Location) => l.image);
         },
+        iconSize(): number[] {
+            return [6 * this.zoom, 6 * this.zoom];
+        }
     },
     methods: {
         onChangeIndex(index: number) {
@@ -122,7 +125,9 @@ export default defineComponent({
             <l-map v-model="zoom" v-model:zoom="zoom" :center="[46.9547232, 7.3598507]" style="height: 500px">
                 <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <l-marker v-for="(marker, index) in markers" draggable :lat-lng="marker"
-                    @update:lat-lng="(e) => markerUpdated(e, index)" />
+                    @update:lat-lng="(e) => markerUpdated(e, index)" >
+                    <l-icon :iconUrl="markerIcons[index]" :iconSize="iconSize" />
+                    </l-marker>
                 <l-polyline :latLngs="markers" color="green" />
             </l-map>
         </el-card>
