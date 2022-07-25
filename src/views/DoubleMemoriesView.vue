@@ -1,8 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Aim } from "@element-plus/icons-vue";
 import Container from "../components/common/Container.vue";
-import ResetButton from "../components/common/ResetButton.vue";
 import MemoriesMatrix from "../components/memories/MemoriesMatrix.vue";
 
 interface Data {
@@ -12,7 +10,7 @@ interface Data {
 }
 
 export default defineComponent({
-    components: { Container, ResetButton, Aim, MemoriesMatrix },
+    components: { Container, MemoriesMatrix },
     data() {
         const data: Data = {
             startingMatrix: [

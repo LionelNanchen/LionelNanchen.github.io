@@ -3,10 +3,10 @@ import { defineComponent } from "vue";
 import Container from "../components/common/Container.vue";
 import Berlin from "../assets/worldmap/berlin.jpg";
 import Paris from "../assets/worldmap/paris.jpg";
-import Madrid from "../assets/worldmap/madrid.jpg";
+import Barcelona from "../assets/worldmap/barcelona.jpg";
 import Roma from "../assets/worldmap/roma.jpg";
 import Athens from "../assets/worldmap/athens.jpg";
-import Rabat from "../assets/worldmap/rabat.jpg";
+import Maroc from "../assets/worldmap/maroc.jpg";
 
 import Marker0 from "../assets/worldmap/markers/marker_0.png";
 import Marker1 from "../assets/worldmap/markers/marker_1.png";
@@ -76,7 +76,7 @@ export default defineComponent({
                 },
                 {
                     index: 3,
-                    image: Madrid,
+                    image: Barcelona,
                 },
                 {
                     index: 4,
@@ -88,7 +88,7 @@ export default defineComponent({
                 },
                 {
                     index: 6,
-                    image: Rabat,
+                    image: Maroc,
                 },
             ],
         };
@@ -135,7 +135,7 @@ export default defineComponent({
             <template #header>
                 <span class="card-header-title">Voyage n°{{ currentIndex }}</span>
             </template>
-            <el-carousel arrow="always" :autoplay="false" indicator-position="none" height="800px"
+            <el-carousel arrow="always" :autoplay="false" indicator-position="none" height="300px"
                 @change="onChangeIndex">
                 <el-carousel-item v-for="location in locations" :key="location.index">
                     <el-image class="carousel-image" :src="location.image" :preview-src-list="locationsImages"
@@ -163,11 +163,20 @@ export default defineComponent({
 .carousel-image {
     width: 100%;
     margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
 
 <style>
 .el-carousel__arrow {
     background-color: gray !important;
+}
+
+.el-image__inner {
+    width: auto !important;
+    max-width: 100%;
+    max-height: 300px !important;   
 }
 </style>
