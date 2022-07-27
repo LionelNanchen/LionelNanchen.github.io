@@ -82,7 +82,7 @@ export default defineComponent({
                 <el-alert v-if="logs >= Step.Third && logs < Step.Final" title="Mais laisse Guillaume tranquille!" description="La réponse est devant tes yeux! 👀" type="error"
                     :closable="false" effect="dark" show-icon />
                 <el-alert v-if="logs >= Step.Final"
-                    title="Avec tous ce bois on peut se faire un petit feu! feu! 🔥" type="info"
+                    title="Avec tous ce bois on peut se faire un petit feu! 🔥" type="info"
                     :closable="false" effect="dark" show-icon />
             </div>
         </el-card>
@@ -109,13 +109,13 @@ img {
 
 .axe-button {
     z-index: 1;
-    height: 100%;
     padding: 0px !important;
     display: flex;
     align-items: end;
     position: absolute;
     background-color: transparent !important;
     left: 50%;
+    bottom: 0px;
     transform: translateX(-50%);
 }
 
