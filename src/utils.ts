@@ -54,11 +54,4 @@ export const riddles: Riddle[] = [
         response: "",
         availableTime: moment(startingTime).add(75, 'minutes').format("HH:mm"),
     },
-    {
-        id: "",
-        index: 7,
-        title: "???",
-        response: "",
-        availableTime: moment(startingTime).add(90, 'minutes').format("HH:mm"),
-    },
 ];
