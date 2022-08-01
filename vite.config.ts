@@ -19,6 +19,9 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         hieroglyphs: resolve(__dirname, 'hieroglyphs/index.html'),
         doubleMemories: resolve(__dirname, 'doubleMemories/index.html'),
+        worldMap: resolve(__dirname, 'worldMap/index.html'),
+        axe: resolve(__dirname, 'axe/index.html'),
+        souvenir: resolve(__dirname, 'souvenir/index.html'),
       }
     }
   },
