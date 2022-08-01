@@ -9,7 +9,7 @@ export enum RiddleId {
     Souvenir = "souvenir",
 }
 
-const startingTime = moment("10:45", "HH:mm");
+const startingTime = moment("01:45", "HH:mm");
 
 export const riddles: Riddle[] = [
     {

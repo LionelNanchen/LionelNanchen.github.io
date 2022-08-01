@@ -1,4 +1,4 @@
 module.exports = {
-    publicPath: '/LionelNanchen.github.io/',
+    publicPath: '/lionelnanchen.github.io/',
     outputDir: "dist",
 }
