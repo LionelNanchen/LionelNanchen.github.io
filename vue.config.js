@@ -4,8 +4,8 @@ module.exports = {
     pages: {
         hieroglyphs: {
             entry: 'src/main.js',
-            template: 'public/index.html',
-            filename: 'index.html',
+            template: 'public/hieroglyphs/index.html',
+            filename: '/hieroglyphs/index.html',
             title: 'Hieroglyphs',
             chunks: ['chunk-vendors', 'chunk-common', 'index']
         },
