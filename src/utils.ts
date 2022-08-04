@@ -3,7 +3,7 @@ import moment from "moment";
 export enum RiddleId {
     Hieroglyphs = "hieroglyphs",
     DoubleMemories = "doubleMemories",
-    TimeTravel = "timeTravel",
+    Cats = "cats",
     WorldMap = "worldMap",
     Axe = "axe",
     Souvenir = "souvenir",
@@ -27,9 +27,9 @@ export const riddles: Riddle[] = [
         availableTime: moment(startingTime).add(15, 'minutes').format("HH:mm"),
     },
     {
-        id: RiddleId.TimeTravel,
+        id: RiddleId.Cats,
         index: 3,
-        title: "Voyage dans le temps",
+        title: "Chats",
         response: "",
         availableTime: moment(startingTime).add(30, 'minutes').format("HH:mm"),
     },

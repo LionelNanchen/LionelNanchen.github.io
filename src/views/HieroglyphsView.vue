@@ -104,6 +104,7 @@ export default defineComponent({
 .hieroglyphs-text {
     font-size: 24px;
     word-spacing: 16px;
+    transform: scale(-1, 1);
 }
 
 /* List card */

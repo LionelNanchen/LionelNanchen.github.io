@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { riddles } from "@/utils";
-import WelcomeView from "../views/WelcomeView.vue"
 import HieroglyphsView from "../views/HieroglyphsView.vue"
-import TimeTravelView from "@/views/TimeTravelView.vue";
+import CatsView from "@/views/CatsView.vue";
 import DoubleMemoriesView from "@/views/DoubleMemoriesView.vue";
 import WorldMapView from "@/views/WorldMapView.vue";
 import AxeView from "@/views/AxeView.vue";
@@ -13,11 +12,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "Welcome",
-      component: WelcomeView,
-    },
-    {
-      path: `/${riddles[0].id}`,
+      alias: `/${riddles[0].id}`,
       name: riddles[0].title,
       component: HieroglyphsView,
     },
@@ -29,7 +24,7 @@ const router = createRouter({
     {
       path: `/${riddles[2].id}`,
       name: riddles[2].title,
-      component: TimeTravelView,
+      component: CatsView,
     },
     {
       path: `/${riddles[3].id}`,

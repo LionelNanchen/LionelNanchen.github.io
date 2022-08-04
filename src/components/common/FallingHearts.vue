@@ -17,7 +17,6 @@ export default defineComponent({
         return data;
     },
     created() {
-        console.log('Created');
         this.interval = setInterval(this.display, 300000)
     },
     beforeUnmount() {

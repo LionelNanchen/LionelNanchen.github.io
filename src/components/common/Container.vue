@@ -37,12 +37,11 @@ export default defineComponent({
         // Check if authenticated
         this.authenticated = true; //localStorage.getItem('authenticated') === 'true';
 
-        // TODO: Handle Welcome page
         // Read path
         const path = window.location.pathname.split('/')[1];
         const store = useRiddlesStore();
         this.riddles = store.riddles;
-        this.currentRiddle = this.riddles?.find((r: Riddle) => r.id === path);
+        this.currentRiddle = this.riddles ? (this.riddles.find((r: Riddle) => r.id === path) ?? this.riddles[0]) : undefined;
 
         // Check riddle available time
         this.checkAccessibility().then(() => {
