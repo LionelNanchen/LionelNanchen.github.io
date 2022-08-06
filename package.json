@@ -16,7 +16,8 @@
     "moment": "^2.29.3",
     "pinia": "^2.0.13",
     "vue": "^3.2.33",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vue3-flip-countdown": "^0.1.6"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",
