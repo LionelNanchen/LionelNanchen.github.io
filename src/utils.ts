@@ -50,7 +50,7 @@ export const riddles: Riddle[] = [
     {
         id: RiddleId.Souvenir,
         index: 6,
-        title: "Souvenir",
+        title: "Souvenir perturbé",
         response: "",
         availableTime: moment(startingTime).add(75, 'minutes').format("HH:mm"),
     },

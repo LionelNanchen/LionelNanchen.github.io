@@ -22,12 +22,19 @@ export default defineComponent({
                 [undefined, undefined, undefined, '🎱', undefined],
                 ['🏀', undefined, undefined, undefined, undefined],
             ],
+            // answerMatrix: [
+            //     ['⚽️', undefined, undefined, undefined, undefined],
+            //     [undefined, undefined, undefined, '🏀', undefined],
+            //     [undefined, undefined, undefined, undefined, '🎱'],
+            //     [undefined, undefined, '⚾️', undefined, undefined],
+            //     [undefined, '🏐', undefined, undefined, undefined],
+            // ],
             answerMatrix: [
-                ['⚽️', undefined, undefined, undefined, undefined],
-                [undefined, undefined, undefined, '🏀', undefined],
-                [undefined, undefined, undefined, undefined, '🎱'],
-                [undefined, undefined, '⚾️', undefined, undefined],
                 [undefined, '🏐', undefined, undefined, undefined],
+                [undefined, undefined, '⚾️', undefined, undefined],
+                [undefined, undefined, undefined, undefined, '🎱'],
+                [undefined, undefined, undefined, '🏀', undefined],
+                ['⚽️', undefined, undefined, undefined, undefined],
             ],
             answer: 'Z',
         };
@@ -38,6 +45,6 @@ export default defineComponent({
 
 <template>
     <Container>
-        <MemoriesMatrix :startingMatrix="startingMatrix" :answerMatrix="answerMatrix" :answer="answer" />
+        <MemoriesMatrix :startingMatrix="startingMatrix" :answerMatrix="answerMatrix" :answer="answer" reversed />
     </Container>
 </template>
