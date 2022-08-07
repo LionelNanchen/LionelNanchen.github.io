@@ -12,10 +12,10 @@ import Clue3 from "../assets/cats/clues/3.jpeg";
 import Clue4 from "../assets/cats/clues/4.jpeg";
 import Clue5 from "../assets/cats/clues/5.jpeg";
 import Clue6 from "../assets/cats/clues/6.jpeg";
-import Clue7 from "../assets/cats/clues/7.jpeg";
 import moment from "moment";
 
 enum Result { NotSet, Wrong, Right }
+enum Storage { Hearts = "catsHearts", Deadline = "catsDeadline" }
 
 interface Cat {
     name: string,
@@ -64,7 +64,7 @@ export default defineComponent({
             foods: ["🍎", "🍉", "🍇", "🍚", "🍓", "🧀", "🦴", "🐠", "🐁"],
             remainingHearts: 3,
             result: Result.NotSet,
-            clues: [Clue1, Clue2, Clue3, Clue4, Clue5, Clue6, Clue7],
+            clues: [Clue1, Clue2, Clue3, Clue4, Clue5, Clue6],
             countdown: 0,
             deadline: null,
             interval: null,
@@ -73,12 +73,14 @@ export default defineComponent({
     },
     created() {
         // Check remaining hearts
-        const remainingHearts = localStorage.getItem('catsHearts');
+        const remainingHearts = localStorage.getItem(Storage.Hearts);
         if (remainingHearts !== null) {
             this.remainingHearts = parseInt(remainingHearts);
             if (this.remainingHearts === 0) {
-                const countdown = localStorage.getItem('catsCountdown') ?? "60";
-                this.youDied(parseInt(countdown));
+                const deadline = localStorage.getItem(Storage.Deadline) ?? moment().add(3, "seconds").format("YYYY-MM-DD HH:mm:ss")
+                const countdown = moment(deadline).diff(moment(), "seconds");
+                console.log("Countdown - ", countdown);
+                this.youDied(countdown, deadline);
             }
         }
     },
@@ -114,23 +116,27 @@ export default defineComponent({
                 this.result = Result.Wrong;
                 this.remainingHearts = this.remainingHearts - 1;
                 this.updateStorage();
-                if (this.remainingHearts === 0) this.youDied(60);
+                if (this.remainingHearts === 0) {
+                    const countdown = 60;
+                    const deadline = moment().add(countdown, 'seconds').format("YYYY-MM-DD HH:mm:ss");
+                    this.youDied(countdown, deadline);
+                }
             }
         },
         updateStorage() {
-            localStorage.setItem('catsHearts', `${this.remainingHearts}`);
+            localStorage.setItem(Storage.Hearts, `${this.remainingHearts}`);
         },
-        youDied(countdown: number) {
+        youDied(countdown: number, deadline: string) {
             // Clear interval
             if (this.interval) clearInterval(this.interval);
             this.interval = null;
 
             // Set countdown
             this.countdown = countdown;
-            this.deadline = moment().add(this.countdown, 'seconds').format("YYYY-MM-DD HH:mm:ss");
+            this.deadline = deadline;
             this.interval = setInterval(() => {
                 this.countdown = this.countdown - 1;
-                localStorage.setItem('catsCountdown', `${this.countdown}`);
+                localStorage.setItem(Storage.Deadline, `${this.deadline}`);
                 if (this.countdown <= 0) {
                     clearInterval(this.interval);
                     this.deadline = null;
@@ -198,6 +204,7 @@ export default defineComponent({
                             :preview-teleported="true" />
                     </el-carousel-item>
                 </el-carousel>
+                <p class="card-help">Les images peuvent être enregistrées pour faciliter l'examination</p>
             </el-card>
         </div>
         <div v-else>
@@ -231,6 +238,11 @@ export default defineComponent({
 
 .card-header-title {
     font-weight: bold;
+}
+
+.card-help {
+    margin-bottom: 10px;
+    font-size: 14px;
 }
 
 .cats-card-body {
@@ -285,6 +297,7 @@ export default defineComponent({
 }
 
 .el-alert__title {
+    user-select: all;
     font-size: 18px !important;
 }
 </style>
