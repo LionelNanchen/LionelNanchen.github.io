@@ -1,11 +1,13 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { useRiddlesStore } from "@/stores";
 import type { ElScrollbar } from "element-plus";
-import { defineComponent } from "vue";
 import moment from "moment";
 import Header from "./Header.vue";
 import RiddleSelect from "./RiddleSelect.vue";
 import TimeAPI from "../../network/time";
+import Branch from "../../assets/general/branch.png";
+import Leaf from "../../assets/general/leaf.png";
 
 interface Data {
     loading: boolean,
@@ -15,6 +17,8 @@ interface Data {
     password: string,
     interval: NodeJS.Timer | undefined,
     countdown: number,
+    branch: string,
+    leaf: string,
 }
 
 export default defineComponent({
@@ -28,6 +32,8 @@ export default defineComponent({
             password: '',
             interval: undefined,
             countdown: 0,
+            branch: Branch,
+            leaf: Leaf,
         };
         return data;
     },
@@ -85,7 +91,7 @@ export default defineComponent({
         inaccessibleMessage(): string {
             const minutes = Math.ceil(this.countdown / 60)
             return `Revenez dans ${minutes} minute${minutes > 1 ? 's' : ''}`;
-        }
+        },
     },
 })
 </script>
@@ -96,7 +102,8 @@ export default defineComponent({
             <el-header>
                 <Header />
             </el-header>
-            <el-main>
+            <el-main style="position: relative">
+                <img :src="branch" class="branch" />
                 <el-scrollbar ref="scrollbarRef" style="justify-content: center; display: flex;">
                     <div ref="innerRef" class="riddles">
                         <RiddleSelect v-for="riddle in riddles" :riddle="riddle" :currentRiddle="currentRiddle" />
@@ -118,6 +125,9 @@ export default defineComponent({
                     <div v-else-if="!loading">
                         <el-result icon="warning" title="Cet énigme n'est pas encore accessible"
                             :sub-title="inaccessibleMessage" />
+                    </div>
+                    <div class="leaf">
+                        <img :src="leaf" />
                     </div>
                 </el-main>
             </el-main>
@@ -150,6 +160,25 @@ export default defineComponent({
 .input-response {
     margin-top: 6px;
     max-width: 140px;
+}
+
+.branch {
+    position: absolute;
+    width: 50%;
+    max-width: 200px;
+    top: 0px;
+    right: 0px;
+}
+
+.leaf {
+    margin: 40px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.leaf img {
+    width: 100px;
 }
 </style>
 
