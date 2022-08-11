@@ -26,6 +26,11 @@ interface Cat {
     options?: string[],
 }
 
+interface Symbols {
+    japanese: string[],
+    korean: string[],
+}
+
 interface Data {
     Result: any,
     cats: Cat[],
@@ -35,6 +40,7 @@ interface Data {
     result: Result,
     remainingHearts: number,
     clues: string[],
+    symbols: Symbols,
     countdown: number,
     deadline: string | null,
     interval: any | null,
@@ -65,6 +71,10 @@ export default defineComponent({
             remainingHearts: 3,
             result: Result.NotSet,
             clues: [Clue1, Clue2, Clue3, Clue4, Clue5, Clue6],
+            symbols: {
+                japanese: ["茶", "酒", "魚", "日", "水", "鮭", "葡", "卵", "好", "五", "手", "七"],
+                korean: ["집", "쌀", "꽃", "유", "뼈", "술", "빵", "칠", "오", "코", "쥐", "연"],
+            },
             countdown: 0,
             deadline: null,
             interval: null,
@@ -170,7 +180,7 @@ export default defineComponent({
                             <img :src="cat.image" />
                             <el-input maxlength="10" type="text" v-model="cat.inputName" placeholder="Mon nom ?"
                                 style="margin-top: 12px" />
-                            <el-select v-if="checkCatsName()" v-model="cat.options" placeholder="Nourris moi !"
+                            <el-select v-if="checkCatsName()" v-model="cat.options" placeholder="Manger + boire"
                                 size="large" multiple :multiple-limit="2" style="margin: 12px 0px 12px 0px">
                                 <el-option-group v-for="group in groups" :key="group.label" :label="group.label">
                                     <el-option v-for="option in group.options" :key="option" :label="option"
@@ -194,9 +204,9 @@ export default defineComponent({
                     </div>
                 </div>
             </el-card>
-            <el-card class="cats-card">
+            <el-card class="cats-card" v-if="checkCatsName()">
                 <template #header>
-                    <span class="card-header-title">Que souaitent-ils?</span>
+                    <span class="card-header-title">Indices</span>
                 </template>
                 <el-carousel arrow="always" :autoplay="false" indicator-position="none" height="300px">
                     <el-carousel-item v-for="clue in clues" :key="clue">
@@ -204,7 +214,21 @@ export default defineComponent({
                             :preview-teleported="true" />
                     </el-carousel-item>
                 </el-carousel>
-                <p class="card-help">Les images peuvent être enregistrées pour faciliter l'examination</p>
+            </el-card>
+            <el-card class="cats-card" v-if="checkCatsName()">
+                <template #header>
+                    <span class="card-header-title">Symboles</span>
+                </template>
+                <div class="cats-symbols-card">
+                    <div class="cats-symbols-column">
+                        <p style="font-size: 26px;">🇯🇵</p>
+                        <p v-for="japanese in symbols.japanese">{{ japanese }}</p>
+                    </div>
+                    <div class="cats-symbols-column">
+                        <p style="font-size: 26px;">🇰🇷</p>
+                        <p v-for="korean in symbols.korean">{{ korean }}</p>
+                    </div>
+                </div>
             </el-card>
         </div>
         <div v-else>
@@ -277,6 +301,17 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.cats-symbols-card {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cats-symbols-column {
+    font-size: 24px;
+    text-align: center;
 }
 </style>
 
