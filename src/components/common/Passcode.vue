@@ -24,6 +24,9 @@ export default defineComponent({
         };
         return data;
     },
+    created() {
+        localStorage.removeItem("authenticated");
+    },
     methods: {
         onClick() {
             this.authenticated = this.input.trim().replaceAll(" ", "").toLowerCase() === this.passcode.trim().replaceAll(" ", "").toLowerCase();
@@ -33,6 +36,11 @@ export default defineComponent({
                 ElMessage({
                     message: "Dévérouillé",
                     type: "success",
+                });
+            } else {
+                ElMessage({
+                    message: "Mauvais code d'accès",
+                    type: "error",
                 });
             }
         },
