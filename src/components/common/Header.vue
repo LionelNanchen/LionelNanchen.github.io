@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import router from '@/router'
 import Title from "../../assets/general/title_vertical.png";
 
 interface Data {
@@ -13,13 +14,18 @@ export default defineComponent({
         };
         return data;
     },
+    methods: {
+        onClick() {
+            router.push('/');
+        }
+    },
 })
 </script>
 
 <template>
-  <div class="header">
-    <img class="header-title" :src="title" />
-  </div>
+    <div class="header">
+        <img class="header-title" :src="title" @click="onClick" />
+    </div>
 </template>
 
 <style scoped>

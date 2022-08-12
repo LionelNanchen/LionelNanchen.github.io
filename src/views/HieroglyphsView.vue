@@ -106,8 +106,6 @@ export default defineComponent({
     word-spacing: 16px;
     transform: scale(-1, 1);
 }
-
-/* List card */
 </style>
 
 <style>

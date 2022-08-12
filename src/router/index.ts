@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { riddles } from "@/utils";
+import WelcomeView from "../views/WelcomeView.vue"
 import HieroglyphsView from "../views/HieroglyphsView.vue"
 import CatsView from "@/views/CatsView.vue";
 import DoubleMemoriesView from "@/views/DoubleMemoriesView.vue";
@@ -12,7 +13,11 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      alias: `/${riddles[0].id}`,
+      name: "Welcome",
+      component: WelcomeView,
+    },
+    {
+      path: `/${riddles[0].id}`,
       name: riddles[0].title,
       component: HieroglyphsView,
     },

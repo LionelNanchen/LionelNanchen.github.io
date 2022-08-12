@@ -23,6 +23,9 @@ interface Data {
 
 export default defineComponent({
     components: { Header, RiddleSelect },
+    props: {
+        welcome: { type: Boolean, required: false },
+    },
     data() {
         const data: Data = {
             loading: true,
@@ -42,7 +45,7 @@ export default defineComponent({
         const path = window.location.pathname.split('/')[1];
         const store = useRiddlesStore();
         this.riddles = store.riddles;
-        this.currentRiddle = this.riddles ? (this.riddles.find((r: Riddle) => r.id === path) ?? this.riddles[0]) : undefined;
+        this.currentRiddle = !this.welcome && this.riddles ? (this.riddles.find((r: Riddle) => r.id === path) ?? this.riddles[0]) : undefined;
 
         // Check riddle available time
         this.checkAccessibility().then(() => {
@@ -110,8 +113,8 @@ export default defineComponent({
                     </div>
                 </el-scrollbar>
                 <el-main v-loading="loading" element-loading-background="white">
-                    <div v-if="accessible">
-                        <div class="main">
+                    <div v-if="welcome || accessible">
+                        <div class="main" v-if="!welcome">
                             <span class="riddle-index">Énigme {{ currentRiddle?.index }} - </span>
                             <span class="title">{{ currentRiddle?.title }}</span>
                             <div class="input-response">

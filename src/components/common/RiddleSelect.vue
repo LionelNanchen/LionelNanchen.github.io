@@ -1,6 +1,6 @@
 <script lang="ts">
-import router from '@/router'
-import { defineComponent, type PropType } from 'vue'
+import router from '@/router';
+import { defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
     props: {
