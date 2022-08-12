@@ -27,7 +27,7 @@ export default defineComponent({
                 [undefined, undefined, undefined, '🎱', undefined],
                 ['🏀', undefined, undefined, undefined, undefined],
             ],
-            answer: 'U',
+            answer: 'T',
         };
         return data;
     },

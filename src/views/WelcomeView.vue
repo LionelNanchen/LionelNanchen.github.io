@@ -28,12 +28,12 @@ export default defineComponent({
                     <span class="card-header-title">Escape Game</span>
                 </div>
             </template>
-            <p class="welcome-text center">Les marriés m'ont demandé d'organiser un Escape Game pour leur marriage. J'ai donc créé ce site web.</p>
+            <p class="welcome-text center">{{ "Les mariés m'ont demandé d'organiser un Escape Game pour leur mariage.\nJ'ai donc créé ce site web." }}</p>
             <p class="welcome-text center" style="margin: 12px 0px">Amusez-vous bien !!!</p>
             <p class="welcome-text center">Merci</p>
             <el-divider />
             <div>
-                <p class="welcome-text center">Pour commencer cliquer sur la 1ère énigme:</p>
+                <p class="welcome-text center">Pour commencer cliquer sur la 1re énigme:</p>
                 <div class="center">
                     <div class="welcome-first-riddle" @click="onClick">
                         <span>{{ firstRiddle.index }}</span>

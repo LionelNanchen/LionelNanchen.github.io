@@ -24,14 +24,10 @@ export default defineComponent({
         };
         return data;
     },
-    created() {
-        localStorage.removeItem("authenticated");
-    },
     methods: {
         onClick() {
             this.authenticated = this.input.trim().replaceAll(" ", "").toLowerCase() === this.passcode.trim().replaceAll(" ", "").toLowerCase();
             if (this.authenticated) {
-                console.log("Bravo !!!");
                 localStorage.setItem("authenticated", "true");
                 ElMessage({
                     message: "Dévérouillé",
