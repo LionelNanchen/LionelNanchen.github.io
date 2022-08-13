@@ -5,12 +5,10 @@ import type { ElScrollbar } from "element-plus";
 import moment from "moment";
 import Header from "./Header.vue";
 import RiddleSelect from "./RiddleSelect.vue";
-import TimeAPI from "../../network/time";
 import Branch from "../../assets/general/branch.png";
 import Leaf from "../../assets/general/leaf.png";
 
 interface Data {
-    loading: boolean,
     riddles: Riddle[] | undefined,
     currentRiddle: Riddle | undefined,
     accessible: boolean,
@@ -28,7 +26,6 @@ export default defineComponent({
     },
     data() {
         const data: Data = {
-            loading: true,
             riddles: [],
             currentRiddle: undefined,
             accessible: false,
@@ -48,10 +45,8 @@ export default defineComponent({
         this.currentRiddle = !this.welcome && this.riddles ? (this.riddles.find((r: Riddle) => r.id === path) ?? this.riddles[0]) : undefined;
 
         // Check riddle available time
-        this.checkAccessibility().then(() => {
-            this.loading = false;
-            if (!this.accessible) this.interval = setInterval(this.checkAccessibility, 10000);
-        });
+        this.checkAccessibility();
+        if (!this.accessible) this.interval = setInterval(this.checkAccessibility, 10000);
     },
     mounted() {
         // Scroll to riddle select
@@ -72,9 +67,9 @@ export default defineComponent({
                 this.interval = undefined;
             }
         },
-        async checkAccessibility() {
+        checkAccessibility() {
             if (this.currentRiddle) {
-                const now = await TimeAPI.now();
+                const now = moment();
                 const tmp = moment(this.currentRiddle.availableTime, "HH:mm");
                 const availableTime = moment(now);
                 availableTime.hours(tmp.hours());
@@ -112,7 +107,7 @@ export default defineComponent({
                         <RiddleSelect v-for="riddle in riddles" :riddle="riddle" :currentRiddle="currentRiddle" />
                     </div>
                 </el-scrollbar>
-                <el-main v-loading="loading" element-loading-background="white">
+                <el-main element-loading-background="white">
                     <div v-if="welcome || accessible">
                         <div class="main" v-if="!welcome">
                             <span class="riddle-index">Énigme {{ currentRiddle?.index }} - </span>
@@ -125,7 +120,7 @@ export default defineComponent({
                         </div>
                         <slot />
                     </div>
-                    <div v-else-if="!loading">
+                    <div v-else>
                         <el-result icon="warning" title="Cet énigme n'est pas encore accessible"
                             :sub-title="inaccessibleMessage" />
                     </div>
