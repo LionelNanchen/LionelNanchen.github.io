@@ -3,9 +3,10 @@ import { riddles } from "@/utils";
 import { defineComponent } from "vue";
 import router from '@/router';
 import Container from "../components/common/Container.vue";
+import Cryptex from "../components/common/Cryptex.vue";
 
 export default defineComponent({
-    components: { Container },
+    components: { Container, Cryptex, Cryptex },
     data() {
         return {
             firstRiddle: riddles[0],
@@ -41,6 +42,14 @@ export default defineComponent({
                     </div>
                 </div>
             </div>
+        </el-card>
+        <el-card class="welcome-card">
+            <template #header>
+                <div class="card-header">
+                    <span class="card-header-title">Cryptex</span>
+                </div>
+            </template>
+            <Cryptex />
         </el-card>
     </Container>
 </template>
