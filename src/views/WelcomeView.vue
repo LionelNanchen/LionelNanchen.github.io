@@ -3,14 +3,21 @@ import { riddles } from "@/utils";
 import { defineComponent } from "vue";
 import router from '@/router';
 import Container from "../components/common/Container.vue";
-import Cryptex from "../components/common/Cryptex.vue";
+import Cryptex from "../assets/general/cryptex.png";
+
+interface Data {
+    firstRiddle: Riddle,
+    cryptex: string,
+}
 
 export default defineComponent({
-    components: { Container, Cryptex, Cryptex },
+    components: { Container },
     data() {
-        return {
+        const data: Data = {
             firstRiddle: riddles[0],
+            cryptex: Cryptex,
         };
+        return data;
     },
     methods: {
         onClick() {
@@ -34,6 +41,13 @@ export default defineComponent({
             <p class="welcome-text center">Merci</p>
             <el-divider />
             <div>
+                <p class="welcome-text center">Pour ouvrir le cryptex, cliquer sur l'icône en haut à droite:</p>
+                <div class="center">
+                    <img class="cryptex" :src="cryptex" />
+                </div>
+            </div>
+            <el-divider />
+            <div>
                 <p class="welcome-text center">Pour commencer cliquer sur la 1re énigme:</p>
                 <div class="center">
                     <div class="welcome-first-riddle" @click="onClick">
@@ -42,14 +56,6 @@ export default defineComponent({
                     </div>
                 </div>
             </div>
-        </el-card>
-        <el-card class="welcome-card">
-            <template #header>
-                <div class="card-header">
-                    <span class="card-header-title">Cryptex</span>
-                </div>
-            </template>
-            <Cryptex />
         </el-card>
     </Container>
 </template>
@@ -95,5 +101,9 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.cryptex {
+    width: 40px;
 }
 </style>

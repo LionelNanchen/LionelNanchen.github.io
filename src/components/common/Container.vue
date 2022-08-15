@@ -6,7 +6,7 @@ import moment from "moment";
 import Header from "./Header.vue";
 import RiddleSelect from "./RiddleSelect.vue";
 import Branch from "../../assets/general/branch.png";
-import Leaf from "../../assets/general/leaf.png";
+import Leaf from "../../assets/general/leaf.png"
 
 interface Data {
     riddles: Riddle[] | undefined,
