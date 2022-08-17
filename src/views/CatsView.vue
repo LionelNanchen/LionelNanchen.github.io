@@ -26,11 +26,6 @@ interface Cat {
     options?: string[],
 }
 
-interface Symbols {
-    japanese: string[],
-    korean: string[],
-}
-
 interface Data {
     Result: any,
     cats: Cat[],
@@ -40,7 +35,6 @@ interface Data {
     result: Result,
     remainingHearts: number,
     clues: string[],
-    symbols: Symbols,
     countdown: number,
     deadline: string | null,
     interval: any | null,
@@ -71,10 +65,6 @@ export default defineComponent({
             remainingHearts: 3,
             result: Result.NotSet,
             clues: [Clue1, Clue2, Clue3, Clue4, Clue5, Clue6],
-            symbols: {
-                japanese: ["千", "酒", "茶", "魚", "日", "水", "鮭", "八", "葡", "十", "卵", "好", "五", "百", "手", "七", "犬", "母", "猫", "花"],
-                korean: ["집", "구", "쌀", "꽃", "십", "유", "뼈", "술", "빵", "칠", "백", "오", "코", "쥐", "연", "물", "밥", "네", "꽤", "늘"],
-            },
             countdown: 0,
             deadline: null,
             interval: null,
@@ -113,7 +103,7 @@ export default defineComponent({
     },
     methods: {
         checkCatsName() {
-            return this.cats.reduce((acc, cat) => acc && cat.inputName?.toLocaleLowerCase() === cat.name.toLocaleLowerCase(), true)
+            return this.cats.reduce((acc, cat) => acc && cat.inputName?.toLocaleLowerCase().trim() === cat.name.toLocaleLowerCase().trim(), true)
         },
         checkButtonDisabled() {
             return !this.cats.reduce((acc, cat) => acc && !!cat.inputName && cat.options?.length === 2, true);
@@ -172,7 +162,6 @@ export default defineComponent({
                         <span class="card-header-title">Nourris correctement les chats</span>
                         <span class="card-header-title">{{ hearts }}</span>
                     </div>
-
                 </template>
                 <div class="cats-card-body">
                     <div class="cats">
@@ -206,7 +195,10 @@ export default defineComponent({
             </el-card>
             <el-card class="cats-card" v-if="checkCatsName()">
                 <template #header>
-                    <span class="card-header-title">Indices</span>
+                    <div class="card-header">
+                        <span class="card-header-title">Indices</span>
+                        <span class="card-header-title" style="font-size: 24px">🇯🇵 🇰🇷</span>
+                    </div>
                 </template>
                 <el-carousel arrow="always" :autoplay="false" indicator-position="none" height="300px">
                     <el-carousel-item v-for="clue in clues" :key="clue">
@@ -214,21 +206,6 @@ export default defineComponent({
                             :preview-teleported="true" />
                     </el-carousel-item>
                 </el-carousel>
-            </el-card>
-            <el-card class="cats-card" v-if="checkCatsName()">
-                <template #header>
-                    <span class="card-header-title">Symboles</span>
-                </template>
-                <div class="cats-symbols-card">
-                    <div class="cats-symbols-column">
-                        <p style="font-size: 26px;">🇯🇵</p>
-                        <p v-for="japanese in symbols.japanese">{{ japanese }}</p>
-                    </div>
-                    <div class="cats-symbols-column">
-                        <p style="font-size: 26px;">🇰🇷</p>
-                        <p v-for="korean in symbols.korean">{{ korean }}</p>
-                    </div>
-                </div>
             </el-card>
         </div>
         <div v-else>
@@ -253,7 +230,6 @@ export default defineComponent({
     margin: 12px;
 }
 
-
 .card-header {
     display: flex;
     justify-content: space-between;
@@ -262,11 +238,6 @@ export default defineComponent({
 
 .card-header-title {
     font-weight: bold;
-}
-
-.card-help {
-    margin-bottom: 10px;
-    font-size: 14px;
 }
 
 .cats-card-body {
@@ -301,17 +272,6 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.cats-symbols-card {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.cats-symbols-column {
-    font-size: 24px;
-    text-align: center;
 }
 </style>
 
