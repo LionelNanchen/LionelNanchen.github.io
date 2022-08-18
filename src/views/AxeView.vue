@@ -75,7 +75,7 @@ export default defineComponent({
                 </el-button>
             </div>
             <div style="margin-top: 12px">
-                <el-alert v-if="logs >= Step.First && logs < Step.Second" title="Crac ... Bon, une plus grosse hache hache 🪓" type="info"
+                <el-alert v-if="logs >= Step.First && logs < Step.Second" title="Crac ... Bon, une plus grosse hache 🪓" type="info"
                     :closable="false" effect="dark" show-icon />
                 <el-alert v-if="logs >= Step.Second && logs < Step.Third" title="Boom ... Guillaume à terre! 😵" type="warning"
                     :closable="false" effect="dark" show-icon />

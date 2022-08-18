@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import { ElMessage } from 'element-plus';
 import Container from "../components/common/Container.vue";
 import { ForkSpoon } from '@element-plus/icons-vue';
 import { Countdown } from 'vue3-flip-countdown'
@@ -116,6 +117,10 @@ export default defineComponent({
                 this.result = Result.Wrong;
                 this.remainingHearts = this.remainingHearts - 1;
                 this.updateStorage();
+                ElMessage({
+                    message: `Plus que ${this.remainingHearts} ❤️`,
+                    type: "error",
+                });
                 if (this.remainingHearts === 0) {
                     const countdown = 60;
                     const deadline = moment().add(countdown, 'seconds').format("YYYY-MM-DD HH:mm:ss");

@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
+import { ElMessage } from 'element-plus';
 import { Aim } from "@element-plus/icons-vue";
 import ResetButton from "../common/ResetButton.vue";
 
@@ -65,11 +66,19 @@ export default defineComponent({
                 for (let j = 0; j < this.matrix[i].length; ++j) {
                     if (this.matrix[i][j] !== this.answerMatrix[i][j]) {
                         this.verify = false;
+                        ElMessage({
+                            message: "Combinaison incorrecte",
+                            type: "error",
+                        });
                         return;
                     }
                 }
             }
             this.verify = true;
+            ElMessage({
+                message: "Combinaison correcte",
+                type: "success",
+            });
         },
     }
 });
@@ -86,8 +95,10 @@ export default defineComponent({
         <el-row justify="space-evenly" align="middle" v-for="(row, i) in matrix">
             <el-col :span="2" v-for="(cell, j) in row">
                 <el-button class="double-memories-cell" text circle :disabled="disableCell(cell)"
-                    @click="() => onSelectCell(cell, i, j)" :style="disableCell(cell) ? 'opacity: 0.7' : 'color: #337ecc'">
-                    <span v-if="cell" :class="reversed ? 'reversed' : ''" :style="cell === ball?.ball ? 'opacity: 0.3;' : ''">{{ cell }}</span>
+                    @click="() => onSelectCell(cell, i, j)"
+                    :style="disableCell(cell) ? 'opacity: 0.7' : 'color: #337ecc'">
+                    <span v-if="cell" :class="reversed ? 'reversed' : ''"
+                        :style="cell === ball?.ball ? 'opacity: 0.3;' : ''">{{ cell }}</span>
                     <el-icon v-else>
                         <Aim />
                     </el-icon>
@@ -95,10 +106,13 @@ export default defineComponent({
             </el-col>
         </el-row>
         <el-row justify="center" style="margin-top: 12px">
-            <el-button @click="onVerify" type="primary" :class="reversed ? 'reversed' : ''" round :disabled="!!ball">Vérifier</el-button>
+            <el-button @click="onVerify" type="primary" :class="reversed ? 'reversed' : ''" round :disabled="!!ball">
+                Vérifier</el-button>
         </el-row>
-        <el-result v-if="verify === true" icon="success" title="Combinaison correcte" :sub-title="`Lettre: ${answer}`" :class="reversed ? 'reversed' : ''" />
-        <el-result v-else-if="verify === false" icon="error" title="Combinaison incorrecte" sub-title="Essaie encore" :class="reversed ? 'reversed' : ''" />
+        <el-result v-if="verify === true" icon="success" title="Combinaison correcte" :sub-title="`Lettre: ${answer}`"
+            :class="reversed ? 'reversed' : ''" />
+        <el-result v-else-if="verify === false" icon="error" title="Combinaison incorrecte" sub-title="Essaie encore"
+            :class="reversed ? 'reversed' : ''" />
     </el-card>
 </template>
 

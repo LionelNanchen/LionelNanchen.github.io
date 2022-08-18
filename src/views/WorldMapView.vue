@@ -119,6 +119,18 @@ export default defineComponent({
     <Container>
         <el-card class="world-map-card">
             <template #header>
+                <span class="card-header-title">Voyage n°{{ currentIndex }}</span>
+            </template>
+            <el-carousel arrow="always" :autoplay="false" indicator-position="none" height="300px"
+                @change="onChangeIndex">
+                <el-carousel-item v-for="location in locations" :key="location.index">
+                    <el-image class="carousel-image" :src="location.image" :preview-src-list="locationsImages"
+                        :initial-index="location.index - 1" :preview-teleported="true" />
+                </el-carousel-item>
+            </el-carousel>
+        </el-card>
+        <el-card class="world-map-card">
+            <template #header>
                 <span class="card-header-title">Où sont-ils partis en vacances</span>
             </template>
             <p class="card-help">Les repères peuvent être déplacés</p>
@@ -130,18 +142,6 @@ export default defineComponent({
                     </l-marker>
                 <l-polyline :latLngs="markers" color="green" />
             </l-map>
-        </el-card>
-        <el-card class="world-map-card">
-            <template #header>
-                <span class="card-header-title">Voyage n°{{ currentIndex }}</span>
-            </template>
-            <el-carousel arrow="always" :autoplay="false" indicator-position="none" height="300px"
-                @change="onChangeIndex">
-                <el-carousel-item v-for="location in locations" :key="location.index">
-                    <el-image class="carousel-image" :src="location.image" :preview-src-list="locationsImages"
-                        :initial-index="location.index - 1" :preview-teleported="true" />
-                </el-carousel-item>
-            </el-carousel>
         </el-card>
     </Container>
 </template>
