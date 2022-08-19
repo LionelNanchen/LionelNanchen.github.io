@@ -2,29 +2,62 @@
 import { defineComponent } from "vue";
 import moment from "moment";
 import { ElMessage } from 'element-plus';
+import { startingTime } from "@/utils";
 import Logo from "../../assets/general/logo.png";
 import Leaf from "../../assets/general/leaf.png";
 
 interface Data {
     authenticated: boolean,
+    accessible: boolean,
     passcode: string,
     input: string,
     logo: string,
     leaf: string,
+    countdown: number,
+    interval: NodeJS.Timer | undefined,
 }
 
 export default defineComponent({
     data() {
         const data: Data = {
             authenticated: localStorage.getItem("authenticated") === "true" ?? false,
+            accessible: false,
             passcode: `maldives${moment().startOf('day').diff(moment("05.10.2017", "DD.MM.YYYY").startOf('day'), "day")}`,
             input: "",
             logo: Logo,
             leaf: Leaf,
+            countdown: 0,
+            interval: undefined,
         };
         return data;
     },
+    created() {
+        // Check passcode available time
+        this.checkAccessibility();
+        if (!this.accessible) this.interval = setInterval(this.checkAccessibility, 10000);
+    },
+    beforeUnmount() {
+        this.clearInterval();
+    },
     methods: {
+        clearInterval() {
+            if (this.interval) {
+                clearInterval(this.interval)
+                this.interval = undefined;
+            }
+        },
+        checkAccessibility() {
+            const now = moment();
+            const tmp = moment(startingTime);
+            const availableTime = moment(now);
+            availableTime.hours(tmp.hours());
+            availableTime.minutes(tmp.minutes());
+            this.countdown = availableTime.diff(now, "seconds");
+            if (this.countdown <= 0) {
+                this.accessible = true;
+                this.clearInterval();
+            }
+        },
         onClick() {
             this.authenticated = this.input.trim().replaceAll(" ", "").toLowerCase() === this.passcode.trim().replaceAll(" ", "").toLowerCase();
             if (this.authenticated) {
@@ -41,14 +74,20 @@ export default defineComponent({
             }
         },
     },
+    computed: {
+        inaccessibleMessage(): string {
+            const minutes = Math.ceil(this.countdown / 60)
+            return `Revenez dans ${minutes} minute${minutes > 1 ? 's' : ''}`;
+        },
+    },
 })
 </script>
 
 <template>
-    <slot v-if="authenticated" />
+    <slot v-if="accessible && authenticated" />
     <div v-else class="passcode-container">
         <img class="logo" :src="logo" />
-        <el-card class="passcode-card">
+        <el-card v-if="accessible" class="passcode-card">
             <template #header>
                 <div class="card-header">
                     <span class="card-header-title">Code d'accès</span>
@@ -66,6 +105,9 @@ export default defineComponent({
                     </el-button>
                 </div>
             </div>
+        </el-card>
+        <el-card v-else class="passcode-card">
+            <el-result icon="info" title="La partie n'a pas encore commencée" :sub-title="inaccessibleMessage" />
         </el-card>
         <img class="leaf" :src="leaf" />
     </div>

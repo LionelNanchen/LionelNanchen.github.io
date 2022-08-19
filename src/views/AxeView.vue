@@ -34,10 +34,10 @@ export default defineComponent({
     },
     methods: {
         time(): number {
-            if (this.logs < Step.First) return 300;
-            else if (this.logs < Step.Second) return 500;
-            else if (this.logs < Step.Third) return 800;
-            else return 1200;
+            if (this.logs < Step.First) return 400;
+            else if (this.logs < Step.Second) return 600;
+            else if (this.logs < Step.Third) return 1000;
+            else return 1400;
         },
         onCut() {
             this.isCutting = true;
@@ -79,10 +79,11 @@ export default defineComponent({
                     :closable="false" effect="dark" show-icon />
                 <el-alert v-if="logs >= Step.Second && logs < Step.Third" title="Boom ... Guillaume à terre! 😵" type="warning"
                     :closable="false" effect="dark" show-icon />
-                <el-alert v-if="logs >= Step.Third && logs < Step.Final" title="Mais laisse Guillaume tranquille!" description="La réponse est devant tes yeux! 👀" type="error"
+                <el-alert v-if="logs >= Step.Third && logs < Step.Final" title="Mais laisse Guillaume tranquille!" type="error"
                     :closable="false" effect="dark" show-icon />
                 <el-alert v-if="logs >= Step.Final"
-                    title="Avec tous ce bois on peut se faire un petit feu! 🔥" type="info"
+                    title="Avec tous ce bois on peut se faire un petit feu! 🔥"
+                    type="info"
                     :closable="false" effect="dark" show-icon />
             </div>
         </el-card>
