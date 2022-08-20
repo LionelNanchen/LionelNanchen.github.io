@@ -42,10 +42,7 @@ export default defineComponent({
         },
         checkAccessibility() {
             const now = moment();
-            const tmp = moment(this.riddle.availableTime, "HH:mm");
-            const availableTime = moment(now);
-            availableTime.hours(tmp.hours());
-            availableTime.minutes(tmp.minutes());
+            const availableTime = moment(this.riddle.availableTime, "YYYY-MM-DD HH:mm");
             if (availableTime.diff(now, "seconds") <= 0) {
                 this.accessible = true;
                 this.clearInterval();

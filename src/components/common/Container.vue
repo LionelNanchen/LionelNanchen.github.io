@@ -70,10 +70,7 @@ export default defineComponent({
         checkAccessibility() {
             if (this.currentRiddle) {
                 const now = moment();
-                const tmp = moment(this.currentRiddle.availableTime, "HH:mm");
-                const availableTime = moment(now);
-                availableTime.hours(tmp.hours());
-                availableTime.minutes(tmp.minutes());
+                const availableTime = moment(this.currentRiddle.availableTime, "YYYY-MM-DD HH:mm");
                 this.countdown = availableTime.diff(now, "seconds");
                 if (this.countdown <= 0) {
                     this.accessible = true;

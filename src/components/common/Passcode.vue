@@ -48,10 +48,7 @@ export default defineComponent({
         },
         checkAccessibility() {
             const now = moment();
-            const tmp = moment(startingTime);
-            const availableTime = moment(now);
-            availableTime.hours(tmp.hours());
-            availableTime.minutes(tmp.minutes());
+            const availableTime = moment(startingTime);
             this.countdown = availableTime.diff(now, "seconds");
             if (this.countdown <= 0) {
                 this.accessible = true;
