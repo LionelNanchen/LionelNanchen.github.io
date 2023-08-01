@@ -95,6 +95,8 @@ export default defineComponent({
                 <p style="font-size: 14px">Le lieu de leur lune de miel.</p>
                 <p style="font-size: 14px">Suivi du nombre de jours depuis leur rencontre.</p>
                 <el-divider />
+                <p style="font-size: 12px">Code: {{ passcode }}</p>
+                <el-divider />
                 <el-input type="text" placeholder="Code d'accès" v-model="input" />
                 <div class="passcode-button">
                     <el-button @click="onClick" type="primary" round>
